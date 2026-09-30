@@ -4,84 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Inventario</title>
-    <!-- Tailwind CSS para el diseño -->
-    <script src="https://tailwindcss.com"></script>
+    <!-- Vinculamos el archivo CSS independiente -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gray-100 font-sans text-gray-800">
+<body>
 
-    <div class="container mx-auto p-6 max-w-7xl">
+    <div class="container">
         <!-- TÍTULO DE LA PÁGINA -->
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-extrabold text-blue-600 tracking-tight">Sistema de Gestión de Inventario</h1>
-            <p class="text-gray-500 mt-2">Agrega, filtra y controla tus productos en tiempo real</p>
+        <header>
+            <h1>Sistema de Gestión de Inventario</h1>
+            <p>Agrega, filtra y controla tus productos en tiempo real</p>
         </header>
 
         <!-- SECTOR RESUMEN DE INVENTARIO -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                <p class="text-sm font-medium text-gray-500 uppercase">Total Productos Únicos</p>
-                <p id="resumen-total-productos" class="text-3xl font-bold text-gray-900 mt-1">0</p>
+        <section class="resumen-grid">
+            <div class="card-resumen">
+                <p>Total Productos Únicos</p>
+                <p id="resumen-total-productos">0</p>
             </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                <p class="text-sm font-medium text-gray-500 uppercase">Stock Total Acumulado</p>
-                <p id="resumen-total-stock" class="text-3xl font-bold text-green-600 mt-1">0</p>
+            <div class="card-resumen">
+                <p>Stock Total Acumulado</p>
+                <p id="resumen-total-stock" class="text-success">0</p>
             </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                <p class="text-sm font-medium text-gray-500 uppercase">Valor Total del Inventario</p>
-                <p id="resumen-valor-total" class="text-3xl font-bold text-blue-600 mt-1">$0.00</p>
+            <div class="card-resumen">
+                <p>Valor Total del Inventario</p>
+                <p id="resumen-valor-total" class="text-primary">$0.00</p>
             </div>
         </section>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="main-layout">
             <!-- COLUMNA IZQUIERDA: FORMULARIO DE ALTA -->
-            <div class="space-y-6">
-                <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h2 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2">Agregar Producto</h2>
-                    <form id="form-producto" class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-600 mb-1">Nombre</label>
-                            <input type="text" id="prod-nombre" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <section class="panel">
+                <h2>Agregar Producto</h2>
+                <form id="form-producto">
+                    <div class="form-group">
+                        <label>Nombre del Producto</label>
+                        <input type="text" id="prod-nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Categoría</label>
+                        <select id="prod-categoria" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="Electrónica">Electrónica</option>
+                            <option value="Ropa">Ropa</option>
+                            <option value="Hogar">Hogar</option>
+                            <option value="Alimentos">Alimentos</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Precio ($)</label>
+                            <input type="number" id="prod-precio" step="0.01" min="0" required>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-600 mb-1">Categoría</label>
-                            <select id="prod-categoria" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Selecciona una opción</option>
-                                <option value="Electrónica">Electrónica</option>
-                                <option value="Ropa">Ropa</option>
-                                <option value="Hogar">Hogar</option>
-                                <option value="Alimentos">Alimentos</option>
-                            </select>
+                        <div class="form-group">
+                            <label>Stock</label>
+                            <input type="number" id="prod-stock" min="0" required>
                         </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-1">Precio ($)</label>
-                                <input type="number" id="prod-precio" step="0.01" min="0" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-1">Stock</label>
-                                <input type="number" id="prod-stock" min="0" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            </div>
-                        </div>
-                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition-colors">
-                            AGREGAR PRODUCTO
-                        </button>
-                    </form>
-                </section>
-            </div>
+                    </div>
+                    <button type="submit" class="btn-submit">AGREGAR PRODUCTO</button>
+                </form>
+            </section>
 
             <!-- COLUMNA DERECHA: BUSCADOR Y LISTADO -->
-            <div class="lg:col-span-2 space-y-6">
+            <div style="display: flex; flex-direction: column; gap: 32px;">
                 <!-- BUSCADOR CON FILTROS -->
-                <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h2 class="text-xl font-bold text-gray-700 mb-4">Buscador y Filtros</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Nombre</label>
-                            <input type="text" id="filtro-nombre" placeholder="Buscar..." class="w-full px-3 py-1.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <section class="panel">
+                    <h2>Buscador y Filtros</h2>
+                    <div class="filtros-grid">
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" id="filtro-nombre" placeholder="Buscar...">
                         </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Categoría</label>
-                            <select id="filtro-categoria" class="w-full px-3 py-1.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div class="form-group">
+                            <label>Categoría</label>
+                            <select id="filtro-categoria">
                                 <option value="">Todas</option>
                                 <option value="Electrónica">Electrónica</option>
                                 <option value="Ropa">Ropa</option>
@@ -89,38 +85,38 @@
                                 <option value="Alimentos">Alimentos</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Stock Mínimo</label>
-                            <input type="number" id="filtro-stock" placeholder="0" min="0" class="w-full px-3 py-1.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div class="form-group">
+                            <label>Stock Mínimo</label>
+                            <input type="number" id="filtro-stock" placeholder="0" min="0">
                         </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Precio Máximo</label>
-                            <input type="number" id="filtro-precio" placeholder="Max $" min="0" class="w-full px-3 py-1.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div class="form-group">
+                            <label>Precio Máximo</label>
+                            <input type="number" id="filtro-precio" placeholder="Max $" min="0">
                         </div>
                     </div>
                 </section>
 
                 <!-- SECTOR QUE MUESTRA LOS PRODUCTOS -->
-                <section class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                    <div class="p-6 border-b border-gray-100 flex justify-between items-center">
-                        <h2 class="text-xl font-bold text-gray-700">Productos en Inventario</h2>
-                        <span id="contador-productos" class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">0 visibles</span>
+                <section class="panel" style="padding: 24px 0 0 0;">
+                    <div style="padding: 0 24px 16px 24px; display: flex; justify-content: space-between; align-items: center;">
+                        <h2 style="margin: 0; padding: 0; border: none;">Productos en Inventario</h2>
+                        <span id="contador-productos" class="badge">0 visibles</span>
                     </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
+                    <div class="table-container">
+                        <table>
                             <thead>
-                                <tr class="bg-gray-50 border-b border-gray-200 text-gray-600 text-xs uppercase font-semibold">
-                                    <th class="p-4">Nombre</th>
-                                    <th class="p-4">Categoría</th>
-                                    <th class="p-4 text-right">Precio</th>
-                                    <th class="p-4 text-right">Stock</th>
-                                    <th class="p-4 text-right">Total</th>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Categoría</th>
+                                    <th class="text-right">Precio</th>
+                                    <th class="text-right">Stock</th>
+                                    <th class="text-right">Total</th>
                                 </tr>
                             </thead>
-                            <tbody id="lista-productos" class="divide-y divide-gray-100 text-sm">
+                            <tbody id="lista-productos">
                                 <!-- Los productos se inyectan dinámicamente aquí -->
                                 <tr id="sin-productos">
-                                    <td colspan="5" class="p-8 text-center text-gray-400 italic">No hay productos registrados o que coincidan con los filtros.</td>
+                                    <td colspan="5" class="italic-empty">No hay productos registrados o que coincidan con los filtros.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -132,32 +128,83 @@
 
     <!-- LÓGICA EN JAVASCRIPT -->
     <script>
-        // Base de datos local en memoria
         let inventario = [
             { id: 1, nombre: "Teclado Mecánico", categoria: "Electrónica", precio: 85.00, stock: 15 },
             { id: 2, nombre: "Camiseta de Algodón", categoria: "Ropa", precio: 20.00, stock: 50 },
             { id: 3, nombre: "Sartén Antiadherente", categoria: "Hogar", precio: 35.50, stock: 8 }
         ];
 
-        // Elementos del DOM
         const form = document.getElementById('form-producto');
         const listaProductos = document.getElementById('lista-productos');
-        
-        // Inputs Filtros
         const fNombre = document.getElementById('filtro-nombre');
         const fCategoria = document.getElementById('filtro-categoria');
         const fStock = document.getElementById('filtro-stock');
         const fPrecio = document.getElementById('filtro-precio');
 
-        // Escuchar eventos para filtrar en tiempo real
         [fNombre, fCategoria, fStock, fPrecio].forEach(input => {
             input.addEventListener('input', renderizar);
         });
 
-        // Manejar el envío del formulario
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-
             const nuevoProducto = {
                 id: Date.now(),
                 nombre: document.getElementById('prod-nombre').value.trim(),
+                categoria: document.getElementById('prod-categoria').value,
+                precio: parseFloat(document.getElementById('prod-precio').value),
+                stock: parseInt(document.getElementById('prod-stock').value)
+            };
+            inventario.push(nuevoProducto);
+            form.reset();
+            renderizar();
+        });
+
+        function actualizarResumen() {
+            const totalProductos = inventario.length;
+            const totalStock = inventario.reduce((acc, prod) => acc + prod.stock, 0);
+            const valorTotal = inventario.reduce((acc, prod) => acc + (prod.precio * prod.stock), 0);
+
+            document.getElementById('resumen-total-productos').textContent = totalProductos;
+            document.getElementById('resumen-total-stock').textContent = totalStock;
+            document.getElementById('resumen-valor-total').textContent = `$${valorTotal.toFixed(2)}`;
+        }
+
+        function renderizar() {
+            actualizarResumen();
+
+            const valNombre = fNombre.value.toLowerCase();
+            const valCategoria = fCategoria.value;
+            const valStock = parseInt(fStock.value) || 0;
+            const valPrecio = parseFloat(fPrecio.value) || Infinity;
+
+            const productosFiltrados = inventario.filter(prod => {
+                const coincideNombre = prod.nombre.toLowerCase().includes(valNombre);
+                const coincideCategoria = valCategoria === "" || prod.categoria === valCategoria;
+                const coincideStock = prod.stock >= valStock;
+                const coincidePrecio = prod.precio <= valPrecio;
+                return coincideNombre && coincideCategoria && coincideStock && coincidePrecio;
+            });
+
+            document.getElementById('contador-productos').textContent = `${productosFiltrados.length} visibles`;
+            listaProductos.innerHTML = "";
+
+            if (productosFiltrados.length === 0) {
+                listaProductos.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="italic-empty">No hay productos que coincidan con los filtros.</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            productosFiltrados.forEach(prod => {
+                const totalProducto = prod.precio * prod.stock;
+                const fila = document.createElement('tr');
+                
+                const stockClass = prod.stock < 10 ? 'stock-alerta text-right' : 'text-right';
+
+                fila.innerHTML = `
+                    <td style="font-weight: 500;">${prod.nombre}</td>
+                    <td style="color: var(--text-muted);">${prod.categoria}</td>
+                    <td class="text-right font-mono">$${prod.precio.toFixed(2)}</td>
+                    <td class="${stockClass}">${prod.stock}</td>
