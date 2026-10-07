@@ -10,7 +10,8 @@
 <body>
     <button id="boton-prueba" type="button">Probar conexion</button>
     <p id="mensaje-prueba"></p>
-
+    
+    
     <div class="container">
         <!-- TÍTULO DE LA PÁGINA -->
         <header>
@@ -75,7 +76,7 @@
                     <div class="filtros-grid">
                         <div class="form-group">
                             <label>Nombre</label>
-                            <input type="text" id="filtro-nombre" placeholder="Buscar...">
+                            <input type="text" id="busqueda" placeholder="Buscar...">
                         </div>
                         <div class="form-group">
                             <label>Categoría</label>
@@ -129,6 +130,7 @@
     </div>
 
     <!-- LÓGICA EN JAVASCRIPT -->
+    <script src="dist/index.js"></script>
     <script>
         let inventario = [
             { id: 1, nombre: "Teclado Mecánico", categoria: "Electrónica", precio: 85.00, stock: 15 },

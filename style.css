@@ -218,3 +218,7 @@ tr:hover td {
     font-style: italic;
     padding: 32px;
 }
+
+#mensaje-prueba {
+    color: white
+}
