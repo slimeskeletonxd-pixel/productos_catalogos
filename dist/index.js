@@ -17,3 +17,4 @@ const Juegos = [
     { id: 2, nombre: "mario", categoria: "plataformero", precio: 67, stock: 87 },
     { id: 3, nombre: "sonic", categoria: "sonic", precio: 1, stock: 99999999999999999999999999999999999999 }
 ];
+console.log(Juegos);
